@@ -57,51 +57,57 @@ while True:
                 # Create a socket on the proxyserver
                 print ('Creating socket on proxyserver')
                 c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                c.settimeout(0.5)
                 hostn = filename.replace(b"www.", b"", 1)
                 print ('Host Name: ', hostn)
-                try:
-                    # Connect to the socket to port 80
-                    if(x==0):                       
-                        c.connect((hostn, 80))
-                        originalHost = hostn
-                        print ('Socket connected to port 80 of the host\n')
-                        print(b'GET / HTTP/1.1\r\nHost: '+filename+b'\r\nConnection: keep-alive\r\n\r\n')
-                        c.sendall(b'GET / HTTP/1.1\r\nHost: '+filename+b'\r\nConnection: keep-alive\r\n\r\n')
-                        messageSite = c.recv(bufferSize)
-                        print(3)
-                        while True:
-                                messageSite += c.recv(2000)
-                                                          
-                                if messageSite.endswith(b'\r\n0\r\n\r\n'):
-                                     break
-                       
-                    else :
-                        c.connect((originalHost, 80))
-                        print(b'GET '+ filetouse +b' HTTP/1.1\r\nHost: www.'+originalHost+b'\r\nConnection: keep-alive\r\n\r\n')
-                        c.sendall(b'GET '+ filetouse +b' HTTP/1.1\r\nHost: www.'+originalHost+b'\r\nConnection: keep-alive\r\n\r\n')
-                        messageSite = c.recv(5482)
-                        while True:                     
-                           try:
-                                messageSite += c.recv(5482)
-                                print(messageSite)
-                                if messageSite.endswith(b'\r\n0\r\n\r\n'):
-                                     break
-                           except socket.timeout:
-                               break
+                full_msg=b''
+                
+                # Connect to the socket to port 80
+                if(x==0):                       
+                    c.connect((hostn, 80))
+                    
+                    originalHost = hostn
+                    print ('Socket connected to port 80 of the host\n')
+                    print(b'GET / HTTP/1.1\r\nHost: '+filename+b'\r\nConnection: keep-alive\r\n\r\n')
+                    c.sendall(b'GET / HTTP/1.1\r\nHost: '+filename+b'\r\nConnection: keep-alive\r\n\r\n')
+                    #messageSite = c.recv(bufferSize)
+                    print(3)
+                    while True:
+                         try:
+                            messageSite = c.recv(bufferSize)
+                            print(messageSite)
+                            full_msg +=messageSite
+                         except socket.timeout: 
+                              break
+                                    
+
+                        
+                else :
+                    c.connect((originalHost, 80))
+                    print(b'GET '+ filetouse +b' HTTP/1.1\r\nHost: www.'+originalHost+b'\r\nConnection: keep-alive\r\n\r\n')
+                    c.sendall(b'GET '+ filetouse +b' HTTP/1.1\r\nHost: www.'+originalHost+b'\r\nConnection: keep-alive\r\n\r\n')
+                    
+                    while True:                     
+                                                        
+                         try:
+                            messageSite = c.recv(bufferSize)
+                            print(messageSite)
+                            full_msg +=messageSite
+                         except socket.timeout: 
+                             break
                               
                                                       
                             
                                   
-                    print(2)
+                print(2)
                     
               
-                    print(messageSite)
-                    tmpFile = open(b"./" + hostn, "ab")
-                    tmpFile.write(messageSite)
-                    clientSock.sendall(messageSite)
-                    messageSite=b''
-                except Exception as e: 
-                    print(e)
+                print(full_msg)
+                #tmpFile = open(b"./" + hostn, "ab")
+                #tmpFile.write(full_msg)
+                clientSock.sendall(full_msg)
+                   
+                
                     
 
             else:
