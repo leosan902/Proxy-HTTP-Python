@@ -57,7 +57,7 @@ while True:
                 # Create a socket on the proxyserver
                 print ('Creating socket on proxyserver')
                 c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                c.settimeout(0.5)
+                c.settimeout(0.6)
                 hostn = filename.replace(b"www.", b"", 1)
                 print ('Host Name: ', hostn)
                 full_msg=b''
@@ -78,7 +78,8 @@ while True:
                             print(messageSite)
                             full_msg +=messageSite
                          except socket.timeout: 
-                              break
+                              if(full_msg!=b''):
+                                  break
                                     
 
                         
@@ -94,7 +95,8 @@ while True:
                             print(messageSite)
                             full_msg +=messageSite
                          except socket.timeout: 
-                             break
+                            if(full_msg!=b''):
+                                  break
                               
                                                       
                             
