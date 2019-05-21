@@ -19,12 +19,20 @@ while True:
     print ('Received a connection from: ', enderecoClient)
     message = clientSock.recv(bufferSize)
     print(message)
-    # Extract the filename from the given message
-    if message!= b'':
-        
+    if message!= b'' :
         message.split(b' ')[1]
         filename = message.split()[1].partition(b"/")[2]
         print (filename)
+        if (filename==(b"www.google.com") or message.find(b'Referer: http://localhost:8888/www.google.com')!= -1):
+            print("Site Banido")
+            clientSock.sendall(b"HTTP/1.1 403 Forbidden\r\nConnection: close\r\nContent-Type: text/html\r\n\r\n<!DOCTYPE html>\r\n<html>\r\n\t<head>\r\n\t\t<title>403 - Forbidden</title>\r\n\t</head>\r\n\t<body>\r\n\t\t<h1>Site "+filename+b" Banido</1>\r\n\t</body>\r\n</html>")
+            message= b''
+
+    # Extract the filename from the given message
+    if message!= b'':
+        
+        
+        
         
         if filename.startswith(b'www'):
             x=0
@@ -100,13 +108,13 @@ while True:
                             if(full_msg!=b''):
                                   break
 
-                try:
-                    tmpFile = open(b"./" + hostn, 'ab+')
-                    tmpFile.write(full_msg)
-                    clientSock.sendall(full_msg)
-                    tmpFile.close()
-                except :
-                    pass
+                #try:
+                #    tmpFile = open(b"./" + hostn, 'ab+')
+                #    tmpFile.write(full_msg)
+                clientSock.sendall(full_msg)
+                #    tmpFile.close()
+                #except :
+                #    pass
                    
                 
                     
@@ -117,6 +125,7 @@ while True:
                 print ('File Not Found...Stupid Andy')
                 a = 2
         # Close the socket and the server sockets
-        
+        clientSock.close()
+        c.close()
 
 # Do stuff here
