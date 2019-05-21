@@ -36,18 +36,21 @@ while True:
         
         try:
              #Check whether the file exists in the cache
-            f = open(filetouse[1:], "rb")
-            outputdata = f.read()
+            f = open(filename.replace(b"www.", b"", 1), "rb")
+            outputdata = f.readlines()
             fileExist = b"true"
             print ('File Exists!')
-
-            # ProxyServer finds a cache hit and generates a response message
-            clientSock.send(b"HTTP/1.1 200 OK\r\n")
-            clientSock.send(b"Content-Type:text/html\r\n")
-
+            resp = b""
+            
+            for s in outputdata:
+                resp += s
+            if(resp.find(b'domain=.')!= -1):
+                 start = resp.find(b'domain=.') 
+                 end = resp.find(b'\r', start)
+                 originalHost=resp[start+8:end]
             # Send the content of the requested file to the client
             
-            clientSock.sendall(outputdata)
+            clientSock.sendall(resp)
             print ('Read from cache')
 
             # Error handling for file not found in cache
@@ -58,12 +61,13 @@ while True:
                 print ('Creating socket on proxyserver')
                 c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 c.settimeout(0.6)
-                hostn = filename.replace(b"www.", b"", 1)
-                print ('Host Name: ', hostn)
+                
+                
                 full_msg=b''
                 
                 # Connect to the socket to port 80
-                if(x==0):                       
+                if(x==0):
+                    hostn = filename.replace(b"www.", b"", 1)
                     c.connect((hostn, 80))                  
                     originalHost = hostn
                     print ('Socket connected to port 80 of the host\n')
@@ -96,9 +100,13 @@ while True:
                             if(full_msg!=b''):
                                   break
 
-                #tmpFile = open(b"./" + hostn, "ab")
-                #tmpFile.write(full_msg)
-                clientSock.sendall(full_msg)
+                try:
+                    tmpFile = open(b"./" + hostn, 'ab+')
+                    tmpFile.write(full_msg)
+                    clientSock.sendall(full_msg)
+                    tmpFile.close()
+                except :
+                    pass
                    
                 
                     
