@@ -64,8 +64,7 @@ while True:
                 
                 # Connect to the socket to port 80
                 if(x==0):                       
-                    c.connect((hostn, 80))
-                    
+                    c.connect((hostn, 80))                  
                     originalHost = hostn
                     print ('Socket connected to port 80 of the host\n')
                     print(b'GET / HTTP/1.1\r\nHost: '+filename+b'\r\nConnection: keep-alive\r\n\r\n')
@@ -75,7 +74,6 @@ while True:
                     while True:
                          try:
                             messageSite = c.recv(bufferSize)
-                            print(messageSite)
                             full_msg +=messageSite
                          except socket.timeout: 
                               if(full_msg!=b''):
@@ -92,19 +90,12 @@ while True:
                                                         
                          try:
                             messageSite = c.recv(bufferSize)
-                            print(messageSite)
+
                             full_msg +=messageSite
                          except socket.timeout: 
                             if(full_msg!=b''):
                                   break
-                              
-                                                      
-                            
-                                  
-                print(2)
-                    
-              
-                print(full_msg)
+
                 #tmpFile = open(b"./" + hostn, "ab")
                 #tmpFile.write(full_msg)
                 clientSock.sendall(full_msg)

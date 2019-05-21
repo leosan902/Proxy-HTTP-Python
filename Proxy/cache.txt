@@ -1,1 +1,21 @@
-b'GET /www.google.com HTTP/1.1\r\nHost: localhost:8888\r\nConnection: keep-alive\r\nCache-Control: max-age=0\r\nUpgrade-Insecure-Requests: 1\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36\r\nDNT: 1\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3\r\nAccept-Encoding: gzip, deflate, br\r\nAccept-Language: pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7\r\n\r\n'
+Ready to serve...
+Received a connection from:  ('127.0.0.1', 55315)
+b'GET /www.google.com HTTP/1.1\r\nHost: localhost:8888\r\nConnection: keep-alive\r\nUpgrade-Insecure-Requests: 1\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36\r\nDNT: 1\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3\r\nAccept-Encoding: gzip, deflate, br\r\nAccept-Language: pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7\r\n\r\n'
+b'www.google.com'
+b'/www.google.com'
+File Exist:  b'false'
+Creating socket on proxyserver
+Host Name:  b'google.com'
+Socket connected to port 80 of the host
+
+b'GET / HTTP/1.1\r\nHost: www.google.com\r\nConnection: keep-alive\r\n\r\n'
+Ready to serve...
+Received a connection from:  ('127.0.0.1', 55317)
+b'GET /client_204?&atyp=i&biw=1920&bih=937&ei=eOviXNbJBdyn5OUP-cqjYA HTTP/1.1\r\nHost: localhost:8888\r\nConnection: keep-alive\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36\r\nDNT: 1\r\nAccept: image/webp,image/apng,image/*,*/*;q=0.8\r\nReferer: http://localhost:8888/www.google.com\r\nAccept-Encoding: gzip, deflate, br\r\nAccept-Language: pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7\r\n\r\n'
+b'client_204?&atyp=i&biw=1920&bih=937&ei=eOviXNbJBdyn5OUP-cqjYA'
+b'/client_204?&atyp=i&biw=1920&bih=937&ei=eOviXNbJBdyn5OUP-cqjYA'
+File Exist:  b'false'
+Creating socket on proxyserver
+Host Name:  b'client_204?&atyp=i&biw=1920&bih=937&ei=eOviXNbJBdyn5OUP-cqjYA'
+b'GET /client_204?&atyp=i&biw=1920&bih=937&ei=eOviXNbJBdyn5OUP-cqjYA HTTP/1.1\r\nHost: www.google.com\r\nConnection: keep-alive\r\n\r\n'
+Ready to serve...
