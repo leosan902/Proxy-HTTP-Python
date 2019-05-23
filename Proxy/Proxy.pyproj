@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>05db2367-912e-4031-95d3-29673fa694c4</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Proxy.py</StartupFile>
+    <StartupFile>tes.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
