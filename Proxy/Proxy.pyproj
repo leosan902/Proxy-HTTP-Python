@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>05db2367-912e-4031-95d3-29673fa694c4</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>tes.py</StartupFile>
+    <StartupFile>HTTPSproxy.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,7 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Proxy.py" />
-    <Compile Include="tes.py">
+    <Compile Include="HTTPSproxy.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

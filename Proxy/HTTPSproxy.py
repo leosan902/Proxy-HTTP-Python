@@ -1,10 +1,10 @@
 import socket,random
 import sys,time
-
+import ssl 
 import threading  
 mutex = threading.Lock()  
 # Create a server socket, bind it to a port and start listening
-portaDoServer = 8888
+portaDoServer = 8855
 
 bufferSize = 2046
 serverSock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -12,24 +12,27 @@ serverSock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 # Prepare a server socket
 serverSock.bind(('', portaDoServer))
 serverSock.listen(1000)
-
+context = ssl.create_default_context()
 def pegarSite(filetouse,hostn,clientSock):
     
     
-   
+    
     x= random.randint(1,100)
     print('\nThread '+str(x)+' Created\n'  )
-    Host = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    Host.connect((hostn, 80))
+    hostn = hostn.replace(b':443', b'')
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
+    sock = socket.create_connection((hostn, 443))
+    ssl_sock = ssl.wrap_socket(sock)
     
     fullData=b''
+ 
     print(filetouse)
-    Host.sendall(filetouse)
+    ssl_sock.send(filetouse)
    
     while 1:
         # receive data from web server
-        data = Host.recv(4026)
-
+        data = ssl_sock.recv(4026)
+        print(data)
         if (len(data) > 0):
             fullData+=data
         else:
@@ -37,8 +40,8 @@ def pegarSite(filetouse,hostn,clientSock):
                   
     clientSock.send(fullData)
     if filetouse.find(b'Connection: close')!= -1:
-        clientSock.close()
-        Host.close()
+        ssl_sock.close()
+        s.close()
     
     print('\nThread '+str(x)+' Terminated \n' )
     
