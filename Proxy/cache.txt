@@ -9,3 +9,19 @@ Host Name:  b'google.com'
 Socket connected to port 80 of the host
 
 b'GET http://wallacefund.info/ HTTP/1.1\r\nHost: wallacefund.info\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3\r\nAccept-Encoding: gzip, deflate\r\nConnection: keep-alive\r\nCookie: has_js=1; __utma=217846544.2101576123.1558551383.1558551383.1558551383.1; __utmb=217846544.2.10.1558551383; __utmc=217846544; __utmz=217846544.1558551383.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); _ga=GA1.2.2101576123.1558551383; _gid=GA1.2.1476616259.1558551389\r\nUpgrade-Insecure-Requests: 1\r\nIf-None-Match: W/"1558550370-0-gzip"\r\nCache-Control: max-age=0\r\nDNT: 1\r\n\r\n'
+start = filetouse.find(b'\r\nConnection') 
+    end = filetouse.find(b'\r\n', start+3)
+    remove=filetouse[start+2:end+2]
+    filetouse= filetouse.replace(remove, b"",1)
+    start = filetouse.find(b'Proxy-Connection') 
+    end = filetouse.find(b'\r\n', start+3)
+    remove=filetouse[start:end+2]
+    filetouse= filetouse.replace(remove, b"",1)
+    start = filetouse.find(b'\r\n')
+    filetouse=filetouse[:start+2] + remove + filetouse[start+2:]
+    start = filetouse.find(b'Host') 
+    end = filetouse.find(b'\r\n', start+3)
+    remove=filetouse[start:end+2]
+    filetouse= filetouse.replace(remove, b"",1)
+    start = filetouse.find(b'\r\n')
+    filetouse=filetouse[:start+2] + remove + filetouse[start+2:]
