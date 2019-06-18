@@ -6,7 +6,7 @@ mutex = threading.Lock()
 # Create a server socket, bind it to a port and start listening
 portaDoServer = 8888
 
-bufferSize = 2046
+bufferSize = 600
 serverSock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 serverSock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 # Prepare a server socket
